@@ -44,21 +44,4 @@ out.BetaR_mean
 end
 
 
-function [IDX, C] = JWClus(affinity, K)
-for i=1:size(affinity,1);  D(i,i) = sum(affinity(i,:));  end
-for i=1:size(affinity,1)
-    for j=1:size(affinity,2)
-        NL1(i,j) = affinity(i,j) / (sqrt(D(i,i)) * sqrt(D(j,j)));  
-    end
-end
-[eigVectors, eigValues] = eig(NL1);
-k = K;
-nEigVec = eigVectors(:,(size(eigVectors,1)-(k-1)): size(eigVectors,1));
-for i=1:size(nEigVec,1)
-    n = sqrt(sum(nEigVec(i,:).^2));    
-    U(i,:) = nEigVec(i,:) ./ n; 
-end
-[IDX, C] = kmeans(U,K);
-end
-
 
